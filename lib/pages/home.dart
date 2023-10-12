@@ -1,16 +1,20 @@
-
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbasicrealproject/model/category_model.dart';
 
 class HomePage extends StatelessWidget {
-   HomePage({super.key});
+  HomePage({super.key});
 
-  List<CategoryModel> categories =[];
+  List<CategoryModel> categories = [];
+
+  void _getCategory() {
+    categories = CategoryModel.getCategories();
+  }
 
   @override
   Widget build(BuildContext context) {
+    _getCategory();
+
     return Scaffold(
       appBar: appBar(),
       backgroundColor: Colors.white,
@@ -18,34 +22,73 @@ class HomePage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _searchField(),
-          SizedBox(
-            height: 40,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Text(
-                  'Category',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              SizedBox(height: 15,),
-              Container(
-                height: 150,
-                color: Colors.greenAccent,
-                child: ListView.builder(itemBuilder: (context, index){
-                  return Container();
-                }),
-              )
-            ],
-          )
+          const SizedBox(height: 40),
+          _categoriesSection(),
         ],
       ),
+    );
+  }
+
+  // Model Categories section
+  Column _categoriesSection() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.only(left: 20),
+          child: Text(
+            'Category',
+            style: TextStyle(
+                color: Colors.black, fontSize: 18, fontWeight: FontWeight.w600),
+          ),
+        ),
+        const SizedBox(height: 15),
+        // whole item
+        Container(
+          height: 150,
+          // item list-view
+          child: ListView.separated(
+            itemCount: categories.length,
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.only(left: 20, right: 20),
+            separatorBuilder: (BuildContext context, int index) =>
+                SizedBox(width: 20),
+            itemBuilder: (context, index) {
+              return Container(
+                // item boxbackground theme
+                width: 100,
+                decoration: BoxDecoration(
+                    color: categories[index].boxColor.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(16)),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      // item pic
+                      width: 50,
+                      height: 50,
+                      decoration: const BoxDecoration(
+                          color: Colors.white, shape: BoxShape.circle),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: SvgPicture.asset(categories[index].iconpath),
+                      ),
+                    ),
+                    // item text/name
+                    Text(
+                      categories[index].name,
+                      style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.black,
+                          fontSize: 14),
+                    )
+                  ],
+                ),
+              );
+            },
+          ),
+        )
+      ],
     );
   }
 
