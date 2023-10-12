@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterbasicrealproject/model/category_model.dart';
 import 'package:flutterbasicrealproject/model/diet_model.dart';
-import '';
 import '../model/populer_model.dart';
 
 class HomePage extends StatelessWidget {
@@ -46,85 +45,103 @@ class HomePage extends StatelessWidget {
           const SizedBox(
             height: 40,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(left: 20),
-                child: Text(
-                  'Popular',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                ),
-              ),
-              const SizedBox(height: 15,),
-              ListView.separated(
-                  itemBuilder: (context, index) {
-                    return Container(
-                      height: 100,
-                      decoration: BoxDecoration(
-                            color: populerdiet[index].boxIsSelected ? Colors.white : Colors.transparent,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: populerdiet[index].boxIsSelected ? [
-                            BoxShadow(
-                                color: const Color(0xff1D1617).withOpacity(0.07),
-                                offset: const Offset(0, 10),
-                                blurRadius: 40,
-                                spreadRadius: 0)
-                          ]: []
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          // Item iconpic
-                          SvgPicture.asset(populerdiet[index].iconpath,
-                            width: 65,
-                            height: 65,
-                          ),
-                          // for the item text
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                populerdiet[index].name,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16
-                              ),),
-                              Text(
-                                populerdiet[index].level + ' | ' + populerdiet[index].duration +' | ' + populerdiet[index].calories,
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16
-                              ),)
-                            ],
-                          ),
-                          GestureDetector(
-                            onTap: (){ },
-                            child: SvgPicture.asset('assets/icons/button.svg',
-                              width: 30,
-                              height: 30,),
-                          )
-                        ],
-                      ),
-                    );
-                  },
-                  shrinkWrap: true,
-                  separatorBuilder: (context, index) => const SizedBox(
-                        height: 25,
-                      ),
-                  padding: const EdgeInsets.only(left: 20, right: 20),
-                  itemCount: populerdiet.length),
-            ],
-          )
+          _popularSection()
         ],
       ),
     );
+  }
+
+  // PopularSection
+  Column _popularSection() {
+    return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.only(left: 20),
+              child: Text(
+                'Popular',
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+            const SizedBox(
+              height: 15,
+            ),
+            ListView.separated(
+                itemBuilder: (context, index) {
+                  return Container(
+                    height: 100,
+                    decoration: BoxDecoration(
+                        color: populerdiet[index].boxIsSelected
+                            ? Colors.white
+                            : Colors.transparent,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: populerdiet[index].boxIsSelected
+                            ? [
+                                BoxShadow(
+                                    color: const Color(0xff1D1617)
+                                        .withOpacity(0.07),
+                                    offset: const Offset(0, 10),
+                                    blurRadius: 40,
+                                    spreadRadius: 0)
+                              ]
+                            : []),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        // Item iconpic
+                        SvgPicture.asset(
+                          populerdiet[index].iconpath,
+                          width: 65,
+                          height: 65,
+                        ),
+                        // for the item text
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              populerdiet[index].name,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            ),
+                            Text(
+                              populerdiet[index].level +
+                                  ' | ' +
+                                  populerdiet[index].duration +
+                                  ' | ' +
+                                  populerdiet[index].calories,
+                              style: const TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16),
+                            )
+                          ],
+                        ),
+                        GestureDetector(
+                          onTap: () {},
+                          child: SvgPicture.asset(
+                            'assets/icons/button.svg',
+                            width: 30,
+                            height: 30,
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                shrinkWrap: true,
+                separatorBuilder: (context, index) => const SizedBox(
+                      height: 25,
+                    ),
+                padding: const EdgeInsets.only(left: 20, right: 20),
+                itemCount: populerdiet.length),
+          ],
+        );
   }
 
   Column _dietSection() {
