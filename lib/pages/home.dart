@@ -61,7 +61,7 @@ class HomePage extends StatelessWidget {
                     color: categories[index].boxColor.withOpacity(0.3),
                     borderRadius: BorderRadius.circular(16)),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Container(
                       // item pic
@@ -147,7 +147,7 @@ class HomePage extends StatelessWidget {
   // appBar method
   AppBar appBar() {
     return AppBar(
-      title: Text(
+      title: const Text(
         "Breakfast",
         style: TextStyle(
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
