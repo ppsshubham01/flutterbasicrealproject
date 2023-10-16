@@ -15,7 +15,6 @@ class HomePage extends StatelessWidget {
   void _getCategory() {
     categories = CategoryModel.getCategories();
   }
-
   void _getDiets() {
     diets = DietModel.getDiets();
   }
@@ -122,6 +121,7 @@ class HomePage extends StatelessWidget {
                             )
                           ],
                         ),
+                        // ontap or use tapable banavva mate wedgets ne
                         GestureDetector(
                           onTap: () {},
                           child: SvgPicture.asset(
@@ -134,6 +134,7 @@ class HomePage extends StatelessWidget {
                     ),
                   );
                 },
+                // load in background--
                 shrinkWrap: true,
                 separatorBuilder: (context, index) => const SizedBox(
                       height: 25,
@@ -253,63 +254,107 @@ class HomePage extends StatelessWidget {
           child: ListView.separated(
             itemCount: categories.length,
             scrollDirection: Axis.horizontal,
+            // scrollDirection: Axis.vertical,
             padding: const EdgeInsets.only(left: 20, right: 20),
             separatorBuilder: (BuildContext context, int index) =>
                 const SizedBox(width: 20),
             itemBuilder: (context, index) {
-              return Container(
-                // item boxbackground theme
-                width: 100,
-                decoration: BoxDecoration(
-                    color: categories[index].boxColor.withOpacity(0.3),
-                    borderRadius: BorderRadius.circular(16)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Container(
-                      // item pic
-                      width: 50,
-                      height: 50,
-                      decoration: const BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: SvgPicture.asset(categories[index].iconpath),
-                      ),
-                    ),
-                    // item text/name
-                    Text(
-                      categories[index].name,
-                      style: const TextStyle(
-                          fontWeight: FontWeight.w400,
-                          color: Colors.black,
-                          fontSize: 14),
-                    )
-                  ],
-                ),
-              );
+              return
+                categoryCard(index);
+              //   Container(
+              //   // item boxbackground theme
+              //   width: 100,
+              //   decoration: BoxDecoration(
+              //       color: categories[index].boxColor.withOpacity(0.3),
+              //       borderRadius: BorderRadius.circular(16)),
+              //   child: Column(
+              //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //     children: [
+              //       Container(
+              //         // item pic
+              //         width: 50,
+              //         height: 50,
+              //         decoration: const BoxDecoration(
+              //             color: Colors.white, shape: BoxShape.circle),
+              //         child: Padding(
+              //           padding: const EdgeInsets.all(8.0),
+              //           child: SvgPicture.asset(categories[index].iconpath),
+              //         ),
+              //       ),
+              //       // item text/name
+              //       Text(
+              //         categories[index].name,
+              //         style: const TextStyle(
+              //             fontWeight: FontWeight.w400,
+              //             color: Colors.black,
+              //             fontSize: 14),
+              //       )
+              //     ],
+              //   ),
+              // );
             },
           ),
         )
       ],
     );
   }
+  Widget categoryCard(int index){
+    return  Container(
+
+      // item boxbackground theme
+      width: 100,
+      decoration: BoxDecoration(
+          color: categories[index].boxColor.withOpacity(0.3),
+          borderRadius: BorderRadius.circular(16)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Container(
+            // item pic
+            width: 50,
+            height: 50,
+            decoration: const BoxDecoration(
+                color: Colors.white, shape: BoxShape.circle),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(categories[index].iconpath),
+            ),
+          ),
+          // item text/name
+          Text(
+            categories[index].name,
+            style: const TextStyle(
+                fontWeight: FontWeight.w400,
+                color: Colors.black,
+                fontSize: 14),
+          )
+        ],
+      ),
+    );
+  }
+
+
+
+
+
 
   // Search View method
   Container _searchField() {
     return Container(
       margin: const EdgeInsets.only(top: 40, left: 20, right: 20),
       decoration: BoxDecoration(boxShadow: [
+        //for giving shadow to container
         BoxShadow(
-            color: const Color(0xff1D1617).withOpacity(0.11),
+            color: const Color(0xffe21734).withOpacity(0.5),
             blurRadius: 40,
-            spreadRadius: 0.0)
+            spreadRadius: 40.0)
       ]),
       child: TextField(
         decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.white,
-            contentPadding: const EdgeInsets.all(15),
+            fillColor: Colors.blue,
+            //change the text filed ni under content ni aju baju space apva mate
+            contentPadding: const EdgeInsets.all(45),
             hintText: 'Search Breakfast',
             hintStyle: const TextStyle(color: Color(0xffDDDADA), fontSize: 16),
             prefixIcon: Padding(
@@ -356,7 +401,7 @@ class HomePage extends StatelessWidget {
             color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold),
       ),
       backgroundColor: Colors.white,
-      elevation: 0.0,
+      elevation: 5.0,
       centerTitle: true,
       leading: GestureDetector(
         onTap: () {},
